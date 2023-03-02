@@ -2,12 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Gcoder</title>
   
+  <subtitle>www.gcoder5.com</subtitle>
+  <link href="https://gcoder5.com/atom.xml" rel="self"/>
   
-  <link href="http://example.com/atom.xml" rel="self"/>
-  
-  <link href="http://example.com/"/>
+  <link href="https://gcoder5.com/"/>
   <updated>2023-03-01T16:00:00.000Z</updated>
-  <id>http://example.com/</id>
+  <id>https://gcoder5.com/</id>
   
   <author>
     <name>Gcoder</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>我又回来了</title>
-    <link href="http://example.com/2023/03/02/%E6%88%91%E5%8F%88%E5%9B%9E%E6%9D%A5%E4%BA%86/"/>
-    <id>http://example.com/2023/03/02/%E6%88%91%E5%8F%88%E5%9B%9E%E6%9D%A5%E4%BA%86/</id>
+    <link href="https://gcoder5.com/2023/03/02/%E6%88%91%E5%8F%88%E5%9B%9E%E6%9D%A5%E4%BA%86/"/>
+    <id>https://gcoder5.com/2023/03/02/%E6%88%91%E5%8F%88%E5%9B%9E%E6%9D%A5%E4%BA%86/</id>
     <published>2023-03-02T02:51:39.000Z</published>
     <updated>2023-03-01T16:00:00.000Z</updated>
     
@@ -30,10 +30,10 @@
     
     
     
-    <category term="测试" scheme="http://example.com/categories/%E6%B5%8B%E8%AF%95/"/>
+    <category term="测试" scheme="https://gcoder5.com/categories/%E6%B5%8B%E8%AF%95/"/>
     
     
-    <category term="自我介绍" scheme="http://example.com/tags/%E8%87%AA%E6%88%91%E4%BB%8B%E7%BB%8D/"/>
+    <category term="自我介绍" scheme="https://gcoder5.com/tags/%E8%87%AA%E6%88%91%E4%BB%8B%E7%BB%8D/"/>
     
   </entry>
   
