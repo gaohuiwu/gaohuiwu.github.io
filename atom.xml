@@ -6,7 +6,7 @@
   <link href="https://gcoder5.com/atom.xml" rel="self"/>
   
   <link href="https://gcoder5.com/"/>
-  <updated>2023-03-06T01:41:43.349Z</updated>
+  <updated>2023-03-06T01:44:24.261Z</updated>
   <id>https://gcoder5.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java中的内存泄漏和内存溢出（下）</title>
+    <link href="https://gcoder5.com/2023/03/06/Java%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E5%92%8C%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%EF%BC%88%E4%B8%8B%EF%BC%89/"/>
+    <id>https://gcoder5.com/2023/03/06/Java%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E5%92%8C%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%EF%BC%88%E4%B8%8B%EF%BC%89/</id>
+    <published>2023-03-06T01:39:19.000Z</published>
+    <updated>2023-03-06T01:44:24.261Z</updated>
+    
+    
+    <summary type="html">内存泄漏的最终结果会导致内存溢出</summary>
+    
+    
+    
+    <category term="技术" scheme="https://gcoder5.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="Java" scheme="https://gcoder5.com/tags/Java/"/>
+    
+    <category term="安全" scheme="https://gcoder5.com/tags/%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>Java中的内存泄漏和内存溢出（上）</title>
