@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>用macbook搞虚拟机的那些事儿</title>
+    <link href="/2023/03/25/%E7%94%A8macbook%E6%90%9E%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/"/>
+    <url>/2023/03/25/%E7%94%A8macbook%E6%90%9E%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/</url>
+    
+    <content type="html"><![CDATA[<p>今天闲来无事，用macbook的<code>Parallels Desktop</code>安装了一个<code>fedora37</code>的虚拟机，但是死活就是没办法宿主机和虚拟机之间进行黏贴复制，哎，这让人很惆怅，所以我就想着把fedora37的终端装上桌面算了，起码还能够在里面百度啥的，方便复制！</p><h3 id="把fedora的终端装上桌面"><a href="#把fedora的终端装上桌面" class="headerlink" title="把fedora的终端装上桌面"></a>把fedora的终端装上桌面</h3><h4 id="第一步-升级dnf"><a href="#第一步-升级dnf" class="headerlink" title="第一步 升级dnf"></a>第一步 升级<code>dnf</code></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sehll">dnf upgrade<br>dnf update<br></code></pre></td></tr></table></figure><h4 id="第二步-安装Cinnamon桌面环境"><a href="#第二步-安装Cinnamon桌面环境" class="headerlink" title="第二步 安装Cinnamon桌面环境"></a>第二步 安装<code>Cinnamon</code>桌面环境</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">默认情况下，Cinnamon 位于 Fedora 37 的默认存储库中。现在运行以下命令，将最新版本的 Cinnamon 安装到您的 Fedora 系统中</span><br>dnf group install &quot;Cinnamon Desktop&quot;<br></code></pre></td></tr></table></figure><h4 id="第三步-重启"><a href="#第三步-重启" class="headerlink" title="第三步 重启"></a>第三步 重启</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">reboot<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>杂谈</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>macbook</tag>
+      
+      <tag>虚拟机</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>关于代码优化的技巧记录</title>
     <link href="/2023/03/19/%E5%85%B3%E4%BA%8E%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96%E7%9A%84%E6%8A%80%E5%B7%A7%E8%AE%B0%E5%BD%95/"/>
     <url>/2023/03/19/%E5%85%B3%E4%BA%8E%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96%E7%9A%84%E6%8A%80%E5%B7%A7%E8%AE%B0%E5%BD%95/</url>
