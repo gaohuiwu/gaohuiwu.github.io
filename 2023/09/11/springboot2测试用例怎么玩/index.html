@@ -1,0 +1,861 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/gcoder.png">
+  <link rel="icon" href="/img/gcoder.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Gcoder">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="测试用例对于后端开发人员其实是至关重要的，今天我们就来讲讲 springboot 中的测试用例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springboot2测试用例怎么玩">
+<meta property="og:url" content="https://gcoder5.com/2023/09/11/springboot2%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E6%80%8E%E4%B9%88%E7%8E%A9/index.html">
+<meta property="og:site_name" content="Gcoder">
+<meta property="og:description" content="测试用例对于后端开发人员其实是至关重要的，今天我们就来讲讲 springboot 中的测试用例">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://p.ipic.vip/973aje.png">
+<meta property="og:image" content="https://p.ipic.vip/nhdqes.png">
+<meta property="og:image" content="https://p.ipic.vip/akvq76.png">
+<meta property="article:published_time" content="2023-09-11T06:29:15.000Z">
+<meta property="article:modified_time" content="2023-09-15T02:57:42.110Z">
+<meta property="article:author" content="Gcoder">
+<meta property="article:tag" content="springboot">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://p.ipic.vip/973aje.png">
+  
+  
+  
+  <title>springboot2测试用例怎么玩 - Gcoder</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"gcoder5.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"de50e46160a88a8dcb074fa48bf2fa9c","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"14IbnTzPES9DfmQBoE0SAJHv-MdYXbMMI","app_key":"KioghRKg423xXqRbUSKIxAdG","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?de50e46160a88a8dcb074fa48bf2fa9c";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Gcoder" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Gcoder Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/scooter.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="springboot2测试用例怎么玩"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-11 14:29" pubdate>
+          2023年9月11日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          94 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span>人到访
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">springboot2测试用例怎么玩</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>作为后端开发，我们很容易就忽略了测试用例的重要性，就好像我们容易忽略注释一样，这些我们看似并不重要的东西，其实贯穿于我们整个功能的健壮性以及后续的维护，所以今天我们就来讲讲 springboot 上的测试用例怎么写，怎么用。</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在进行下面测试用例的学习前，我们需要先准备一个 springboot 工程。这边我们从<code>https://start.spring.io/</code>直接搞一个</p>
+<p><img src="https://p.ipic.vip/973aje.png" srcset="/img/loading.gif" lazyload alt="image-20230911144823879"></p>
+<h3 id="快速搞个-SSMP"><a href="#快速搞个-SSMP" class="headerlink" title="快速搞个 SSMP"></a>快速搞个 SSMP</h3><p>为了我们下面的测试，我们将上面的<code> springboot-testcase-demo</code>工程模拟一个 restful 接口，与数据库的用户表交互</p>
+<h4 id="第一步：执行-SQL-脚本，生成测试用的用户表"><a href="#第一步：执行-SQL-脚本，生成测试用的用户表" class="headerlink" title="第一步：执行 SQL 脚本，生成测试用的用户表"></a>第一步：执行 SQL 脚本，生成测试用的用户表</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> DATABASE IF <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> ssmp;<br><br><span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> IF <span class="hljs-keyword">EXISTS</span> tbl_user;<br><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> tbl_user<br>(<br>    ` id`   <span class="hljs-type">int</span> auto_increment comment <span class="hljs-string">&#x27; 主键&#x27;</span><br>        <span class="hljs-keyword">primary</span> key,<br>    ` name` <span class="hljs-type">varchar</span>(<span class="hljs-number">32</span>)  <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;姓名&#x27;</span>,<br>    age     <span class="hljs-type">int</span>          <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;年龄&#x27;</span>,<br>    remarks <span class="hljs-type">varchar</span>(<span class="hljs-number">128</span>) <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27; 简介&#x27;</span><br>)<br>    comment <span class="hljs-string">&#x27;用户表&#x27;</span>;<br><br><span class="hljs-keyword">create</span> index `tbl_user_ id_index`<br>    <span class="hljs-keyword">on</span> tbl_user (` id`);<br></code></pre></td></tr></table></figure>
+
+<h4 id="第二步：集成Mybatis-plus组件"><a href="#第二步：集成Mybatis-plus组件" class="headerlink" title="第二步：集成Mybatis-plus组件"></a>第二步：集成<code>Mybatis-plus</code>组件</h4><ol>
+<li>在<code>pom.xml</code>中添加依赖</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.baomidou<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.5.3<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>逆向工程生成对应的<code>mapper</code>已经实体类以及服务层（这个步骤就不再赘述）</li>
+</ol>
+<p>综上，这样我们就准备好了测试用例的示例工程，下面让我们开始测试用例的学习之旅～</p>
+<h3 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h3><h4 id="模块一：加载测试专用属性"><a href="#模块一：加载测试专用属性" class="headerlink" title="模块一：加载测试专用属性"></a>模块一：加载测试专用属性</h4><p>举一个例子，假设我们现在开发了一个 A 功能，然后功能有个属性 <code>a.isOpen</code>用来控制 A 功能是否开启。当我们开发完之后，想要用测试用例去调试我们的功能，这时候我们可能需要引入专用的测试用的属性，显然如果这时候我们用<code>application.yml</code>来校验也行，但是这样就会污染了正式的配置文件，所以我们就需要能够单独引入测试专用属性的方法。</p>
+<p>在<code>test</code>目录新建一个测试类<code>ATest.java</code>，加载测试用的<code>application.properties</code>的属性</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//springboot 给我们提供的专用测试用例注解  properties可以帮我们临时引入专用的测试属性</span><br><span class="hljs-meta">@SpringBootTest(properties = &#123;&quot;a.isOpen=true&quot;&#125;)</span><br><span class="hljs-comment">// 描述我们这个测试类的名称 junit5 才提供</span><br><span class="hljs-meta">@DisplayName(&quot;A功能测试类&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ATest</span> &#123;<br>    <span class="hljs-meta">@Value(&quot;$&#123;a.isOpen&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> isOpen;<br><br>    <span class="hljs-comment">// junit 提供的测试注解 </span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-comment">// 描述我们这个测试方法的名称</span><br>    <span class="hljs-meta">@DisplayName(&quot;测试a功能是否可以获取专用属性&quot;)</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">testA</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">if</span> (isOpen) &#123;<br>            System.out.println(<span class="hljs-string">&quot;获取成功！&quot;</span>);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在<code>test</code>目录新建一个测试类<code>BTest.java</code>，加载测试用启动传入的<code>args</code>命令行参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//springboot 给我们提供的专用测试用例注解  args可以帮我们临时引入专用的命令行参数</span><br><span class="hljs-meta">@SpringBootTest(args = &#123;&quot;--server.port=9999&quot;&#125;)</span><br><span class="hljs-comment">// 描述我们这个测试类的名称 junit5 才提供</span><br><span class="hljs-meta">@DisplayName(&quot;B 功能测试类&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BTest</span> &#123;<br>    <span class="hljs-meta">@Value(&quot;$&#123;server.port&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> port;<br><br>    <span class="hljs-comment">// junit 提供的测试注解</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-comment">// 描述我们这个测试方法的名称</span><br>    <span class="hljs-meta">@DisplayName(&quot;测试 b 功能获取传入参数&quot;)</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">testB</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;port = &quot;</span> + port);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="模块二：加载测试专用配置"><a href="#模块二：加载测试专用配置" class="headerlink" title="模块二：加载测试专用配置"></a>模块二：加载测试专用配置</h4><p>基于上面的加载专用属性的场景下，如果我们要加载更多的自定义的测试属性，那我们又该如何去做呢？</p>
+<ol>
+<li><p>在<code>test</code>目录下，新建一个配置类<code>MsgConfig.java</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 加上配置注解，交给 spring 管理</span><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MsgConfig</span> &#123;<br>    <span class="hljs-comment">// 声明一个 bean</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">msg</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hello world&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>新建一个测试类<code>CTest.java</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootTest</span><br><span class="hljs-comment">// 加载自定义的配置类</span><br><span class="hljs-meta">@Import(&#123;MsgConfig.class&#125;)</span><br><span class="hljs-meta">@DisplayName(&quot;C功能测试类&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CTest</span> &#123;<br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-meta">@DisplayName(&quot;测试c 功能的加载临时配置类&quot;)</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">testMsg</span><span class="hljs-params">(<span class="hljs-meta">@Autowired</span> String msg)</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;msg = &quot;</span> + msg);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="模块三：启动-web环境"><a href="#模块三：启动-web环境" class="headerlink" title="模块三：启动 web环境"></a>模块三：启动 web环境</h4><p>在我们上面的测试用例中，实际上都是一些非 web 方式的注解介绍，那么对于控制层的请求，我们是否能够通过 springboot 提供的测试组件来模拟呢？答案肯定是可以的，那么假如我们想要测试 <code>restful</code>接口，首先我们需要让测试类能够启动一个 web 环境，只有在 web 环境下我们才能够对控制层的请求进行测试。</p>
+<p>既然是要在测试类里启动 web 环境，那么我们还是从<code>@SpringBootTest</code>注解入手，看看他的属性除了能让我们加载测试专用的参数，是否还有我们所需要的 web 环境。</p>
+<p><img src="https://p.ipic.vip/nhdqes.png" srcset="/img/loading.gif" lazyload alt="image-20230911221304899"></p>
+<p>我们可以从以上<code>SpringBootTest</code>源码中看出，确实除了指定获取参数，我们还可以模拟出一个 web 环境，具体我们用代码来操作一下。</p>
+<p>下面，我们写一个测试类<code>Dtest.java</code>，然后我们启动它来看一下控制台的输出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 启动一个 web 环境，用自定义的接口（即server.port）</span><br><span class="hljs-meta">@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)</span><br><span class="hljs-meta">@DisplayName(&quot;D功能测试类&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DTest</span> &#123;<br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">test</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;true = &quot;</span> + <span class="hljs-literal">true</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://p.ipic.vip/akvq76.png" srcset="/img/loading.gif" lazyload alt="image-20230911221611362"></p>
+<p>我们可以看出确实是启动了一个 web 环境，当然除了使用我们自定义端口外，它还提供了以下几种</p>
+<ol>
+<li>SpringBootTest.WebEnvironment.<em>RANDOM_PORT</em>  以随机端口号启动</li>
+<li>SpringBootTest.WebEnvironment.<em>MOCK</em> 提供一个 mock的 servlet 环境，内置的servlet 容器并没有启动，主要是搭配<code>@AutoConfigureMockMvc</code></li>
+<li>SpringBootTest.WebEnvironment.<em>NONE</em> 不提供真实的 servlet 环境</li>
+</ol>
+<p>既然我们有了 web 环境，那么我们下一步就可以来模拟请求并进行测试了。</p>
+<h4 id="模块四：模拟请求"><a href="#模块四：模拟请求" class="headerlink" title="模块四：模拟请求"></a>模块四：模拟请求</h4><p>既然我们要模拟请求，那么我们首先就需要在我们的示例工程里写一个控制层，比如<code>UserController.java</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;/user&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/test&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">test</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;this is test&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后，我们就可以创建一个测试类<code>Etest.java</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)</span><br><span class="hljs-comment">// 开启虚拟 mvc 调用</span><br><span class="hljs-meta">@AutoConfigureMockMvc</span><br><span class="hljs-meta">@DisplayName(&quot;E功能测试类&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ETest</span> &#123;<br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-meta">@DisplayName(&quot;测试模拟请求&quot;)</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">test</span><span class="hljs-params">(<span class="hljs-meta">@Autowired</span> MockMvc mvc)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>      	<span class="hljs-comment">// 模拟 get 请求，访问/user/test</span><br>        <span class="hljs-type">RequestBuilder</span> <span class="hljs-variable">builder</span> <span class="hljs-operator">=</span> MockMvcRequestBuilders.get(<span class="hljs-string">&quot;/user/test&quot;</span>);<br>        <span class="hljs-type">ResultActions</span> <span class="hljs-variable">actions</span> <span class="hljs-operator">=</span> mvc.perform(builder);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="模块五：模拟请求-匹配响应执行状态"><a href="#模块五：模拟请求-匹配响应执行状态" class="headerlink" title="模块五：模拟请求-匹配响应执行状态"></a>模块五：模拟请求-匹配响应执行状态</h4><p>在我们做测试用例时，我们当然不能仅仅发起请求就结束了，那我们接下来就先说如何匹配响应执行状态，是否真实返回的状态与我们的预期值一致呢？</p>
+<p>首先，我们要先知道一个类，叫做<code>MockMvcResultMatchers</code>，即结果匹配器。毋庸置疑，我们就是用这个匹配器就是帮我们设置各种各样的预期值，来与真实值做比对，那下面我们就上手来用一下这个匹配器。</p>
+<p>基于上面的<code>ETest.java</code>测试类，我们添加如下的方法来验证响应状态。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-meta">@DisplayName(&quot;测试模拟请求的响应状态&quot;)</span><br><span class="hljs-keyword">void</span> <span class="hljs-title function_">testStatus</span><span class="hljs-params">(<span class="hljs-meta">@Autowired</span> MockMvc mvc)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    <span class="hljs-type">RequestBuilder</span> <span class="hljs-variable">builder</span> <span class="hljs-operator">=</span> MockMvcRequestBuilders.get(<span class="hljs-string">&quot;/user/test&quot;</span>);<br>    <span class="hljs-type">ResultActions</span> <span class="hljs-variable">actions</span> <span class="hljs-operator">=</span> mvc.perform(builder);<br><br>    <span class="hljs-comment">// 定义本次的预期值</span><br>    <span class="hljs-type">StatusResultMatchers</span> <span class="hljs-variable">status</span> <span class="hljs-operator">=</span> MockMvcResultMatchers.status();<br>    <span class="hljs-type">ResultMatcher</span> <span class="hljs-variable">ok</span> <span class="hljs-operator">=</span> status.isOk();<br>    <span class="hljs-comment">// 添加预期值到本地调用过程中进行匹配</span><br>    actions.andExpect(ok);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>结合上面我们准备的接口，我们可以知道我们的这个请求肯定是没有问题的，那这样的话就看不出预期值和真实值的效果了，所以我们通过修改<code>/user/test</code>成一个不存在的请求接口，比如<code>/user/test000</code>，基于这样的改造，我们再来看下测试用例的执行结果是怎么样的，从而我们更好的了解它的一个比对过程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-meta">@DisplayName(&quot;测试模拟请求的响应状态&quot;)</span><br><span class="hljs-keyword">void</span> <span class="hljs-title function_">testStatus</span><span class="hljs-params">(<span class="hljs-meta">@Autowired</span> MockMvc mvc)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    <span class="hljs-type">RequestBuilder</span> <span class="hljs-variable">builder</span> <span class="hljs-operator">=</span> MockMvcRequestBuilders.get(<span class="hljs-string">&quot;/user/test000&quot;</span>);<br>    <span class="hljs-type">ResultActions</span> <span class="hljs-variable">actions</span> <span class="hljs-operator">=</span> mvc.perform(builder);<br><br>    <span class="hljs-comment">// 定义本次的预期值</span><br>    <span class="hljs-type">StatusResultMatchers</span> <span class="hljs-variable">status</span> <span class="hljs-operator">=</span> MockMvcResultMatchers.status();<br>    <span class="hljs-type">ResultMatcher</span> <span class="hljs-variable">ok</span> <span class="hljs-operator">=</span> status.isOk();<br>    <span class="hljs-comment">// 添加预期值到本地调用过程中进行匹配</span><br>    actions.andExpect(ok);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs shell">MockHttpServletRequest:<br>      HTTP Method = GET<br>      Request URI = /user/test000<br>       Parameters = &#123;&#125;<br>          Headers = []<br>             Body = null<br>    Session Attrs = &#123;&#125;<br><br>Handler:<br>             Type = org.springframework.web.servlet.resource.ResourceHttpRequestHandler<br><br>Async:<br>    Async started = false<br>     Async result = null<br><br>Resolved Exception:<br>             Type = null<br><br>ModelAndView:<br>        View name = null<br>             View = null<br>            Model = null<br><br>FlashMap:<br>       Attributes = null<br><br>MockHttpServletResponse:<br>           Status = 404<br>    Error message = null<br>          Headers = [Vary:&quot;Origin&quot;, &quot;Access-Control-Request-Method&quot;, &quot;Access-Control-Request-Headers&quot;]<br>     Content type = null<br>             Body = <br>    Forwarded URL = null<br>   Redirected URL = null<br>          Cookies = []<br><br>java.lang.AssertionError: Status expected:&lt;200&gt; but was:&lt;404&gt;<br>Expected :200<br>Actual   :404<br></code></pre></td></tr></table></figure>
+
+<p>通过上面的日志结果，我们可以看到两个值的对比，所以通过这个结果匹配器就可以对我们的响应状态做校验，那么既然它叫做结果匹配器，那是不是也可以对我们的响应体内容进行比对呢，答案是显而易见的，我们继续往下走。</p>
+<h4 id="模块六：模拟请求-匹配响应体"><a href="#模块六：模拟请求-匹配响应体" class="headerlink" title="模块六：模拟请求-匹配响应体"></a>模块六：模拟请求-匹配响应体</h4><p>实际上，匹配响应体跟我们的匹配响应状态是差不多的，话不多说，我们下面直接来改造代码。</p>
+<p>首先，我们先改造原本的<code>/user/test</code>接口，让它有个响应体。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/test&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">test</span><span class="hljs-params">()</span> &#123;<br>    System.out.println(<span class="hljs-string">&quot;this is test&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;success&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们将接口改造好之后，我们就可以在<code>ETest.java</code>加上一个测试方法了。（因为成功的看不出啥东西，所以我们这里直接模拟个错误的响应体，我们直接来看看匹配过程。）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br>    <span class="hljs-meta">@DisplayName(&quot;测试模拟请求的响应体&quot;)</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">testContent</span><span class="hljs-params">(<span class="hljs-meta">@Autowired</span> MockMvc mvc)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">RequestBuilder</span> <span class="hljs-variable">builder</span> <span class="hljs-operator">=</span> MockMvcRequestBuilders.get(<span class="hljs-string">&quot;/user/test&quot;</span>);<br>        <span class="hljs-type">ResultActions</span> <span class="hljs-variable">actions</span> <span class="hljs-operator">=</span> mvc.perform(builder);<br><br>        <span class="hljs-comment">// 定义本次的预期值</span><br>        <span class="hljs-type">ContentResultMatchers</span> <span class="hljs-variable">content</span> <span class="hljs-operator">=</span> MockMvcResultMatchers.content();<br>      	<span class="hljs-comment">// 预期值故意给一个跟响应体不匹配的，用来测试</span><br>        <span class="hljs-type">ResultMatcher</span> <span class="hljs-variable">matcher</span> <span class="hljs-operator">=</span> content.string(<span class="hljs-string">&quot;success123&quot;</span>);<br>        <span class="hljs-comment">// 添加预期值到本地调用过程中进行匹配</span><br>        actions.andExpect(matcher);<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs shell">MockHttpServletRequest:<br>      HTTP Method = GET<br>      Request URI = /user/test<br>       Parameters = &#123;&#125;<br>          Headers = []<br>             Body = null<br>    Session Attrs = &#123;&#125;<br><br>Handler:<br>             Type = com.gcoder5.controller.UserController<br>           Method = com.gcoder5.controller.UserController#test()<br><br>Async:<br>    Async started = false<br>     Async result = null<br><br>Resolved Exception:<br>             Type = null<br><br>ModelAndView:<br>        View name = null<br>             View = null<br>            Model = null<br><br>FlashMap:<br>       Attributes = null<br><br>MockHttpServletResponse:<br>           Status = 200<br>    Error message = null<br>          Headers = [Content-Type:&quot;text/plain;charset=UTF-8&quot;, Content-Length:&quot;7&quot;]<br>     Content type = text/plain;charset=UTF-8<br>             Body = success<br>    Forwarded URL = null<br>   Redirected URL = null<br>          Cookies = []<br><br>java.lang.AssertionError: Response content expected:&lt;success123&gt; but was:&lt;success&gt;<br>Expected :success123<br>Actual   :success<br></code></pre></td></tr></table></figure>
+
+<p>从最后两行，我们可以看到两者的匹配确实是我们设定的情况，所以通过这样的方式我们就可以匹配响应体结果是否正确了。当然，我们在实际业务场景里，可能restful 接口返回最多的类型是 json，那如果是 json，我们的测试用例又该如何改造呢，我们直接在下面把代码贴出来。</p>
+<p>我们还是老样子，改造接口返回类型，然后在<code>ETest.java</code>加上一个测试方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 控制层 UserController  返回类型可以改造成一个对象User（我这边就偷懒啦～）</span><br><span class="hljs-meta">@GetMapping(&quot;/test&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">test</span><span class="hljs-params">()</span> &#123;<br>    System.out.println(<span class="hljs-string">&quot;this is test&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&#123;\&quot;msg\&quot;:\&quot;success\&quot;&#125;&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-meta">@DisplayName(&quot;测试模拟请求的Json响应体&quot;)</span><br><span class="hljs-keyword">void</span> <span class="hljs-title function_">testContentJSon</span><span class="hljs-params">(<span class="hljs-meta">@Autowired</span> MockMvc mvc)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    <span class="hljs-type">RequestBuilder</span> <span class="hljs-variable">builder</span> <span class="hljs-operator">=</span> MockMvcRequestBuilders.get(<span class="hljs-string">&quot;/user/test&quot;</span>);<br>    <span class="hljs-type">ResultActions</span> <span class="hljs-variable">actions</span> <span class="hljs-operator">=</span> mvc.perform(builder);<br><br>    <span class="hljs-comment">// 定义本次的预期值</span><br>    <span class="hljs-type">ContentResultMatchers</span> <span class="hljs-variable">content</span> <span class="hljs-operator">=</span> MockMvcResultMatchers.content();<br>    <span class="hljs-type">ResultMatcher</span> <span class="hljs-variable">matcher</span> <span class="hljs-operator">=</span> content.json(<span class="hljs-string">&quot;&#123;\&quot;msg\&quot;:\&quot;success\&quot;&#125;&quot;</span>);<br>    <span class="hljs-comment">// 添加预期值到本地调用过程中进行匹配</span><br>    actions.andExpect(matcher);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们可以看到，这个代码是大差不差的，所以这里我们也不再展开来说明了。下面，我们继续来说说匹配响应头的方法～</p>
+<h4 id="模块七：模拟请求-匹配响应头"><a href="#模块七：模拟请求-匹配响应头" class="headerlink" title="模块七：模拟请求-匹配响应头"></a>模块七：模拟请求-匹配响应头</h4><p>我们假设我们的场景是要验证下<code>&#39;/user/test&#39;</code>接口的响应头<code>Content-Type</code>这个参数的值，那我们就在<code>ETest.java</code>加上一个测试方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-meta">@DisplayName(&quot;测试模拟请求的响应头&quot;)</span><br><span class="hljs-keyword">void</span> <span class="hljs-title function_">testContentType</span><span class="hljs-params">(<span class="hljs-meta">@Autowired</span> MockMvc mvc)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    <span class="hljs-type">RequestBuilder</span> <span class="hljs-variable">builder</span> <span class="hljs-operator">=</span> MockMvcRequestBuilders.get(<span class="hljs-string">&quot;/user/test&quot;</span>);<br>    <span class="hljs-type">ResultActions</span> <span class="hljs-variable">actions</span> <span class="hljs-operator">=</span> mvc.perform(builder);<br><br>    <span class="hljs-comment">// 定义本次的预期值</span><br>    <span class="hljs-type">HeaderResultMatchers</span> <span class="hljs-variable">header</span> <span class="hljs-operator">=</span> MockMvcResultMatchers.header();<br>    <span class="hljs-type">ResultMatcher</span> <span class="hljs-variable">matcher</span> <span class="hljs-operator">=</span> header.string(<span class="hljs-string">&quot;Content-Type&quot;</span>, <span class="hljs-string">&quot;application/json&quot;</span>);<br>    <span class="hljs-comment">// 添加预期值到本地调用过程中进行匹配</span><br>    actions.andExpect(matcher);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>此时，我们运行的时候，就可以看到比对的结果了。（这里就不贴出来了）</p>
+<h4 id="模块七：业务层测试数据回滚"><a href="#模块七：业务层测试数据回滚" class="headerlink" title="模块七：业务层测试数据回滚"></a>模块七：业务层测试数据回滚</h4><p>众所周知，我们在执行测试用例的时候，假设是一些数据增删改的操作，那无非会给我们的数据库留下一组又一组没有用的测试数据，这样直接污染了我们的数据内容，那么我们是不是可以通过SpringBoot提供的测试组件来解决这个问题呢？</p>
+<p>下面，我们就来说说遇到这样的情况，我们又该如何进行测试用例的编辑和使用。</p>
+<p>首先，新建一个测试类<code>FTest.java</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootTest</span><br><span class="hljs-meta">@DisplayName(&quot;F功能测试类&quot;)</span><br><span class="hljs-comment">// 开启事务 这样的话默认会回滚</span><br><span class="hljs-meta">@Transactional</span><br><span class="hljs-comment">// 有上面的事务注解就够了 下面这个回滚的注解默认是 true  可以不加</span><br><span class="hljs-meta">@Rollback</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FTest</span> &#123;<br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> TblUserService userService;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-meta">@DisplayName(&quot;测试保存用户&quot;)</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">testSave</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">TblUser</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TblUser</span>();<br>        user.setName(<span class="hljs-string">&quot;撞飞&quot;</span>);<br>        user.setAge(<span class="hljs-number">35</span>);<br>        user.setRemarks(<span class="hljs-string">&quot;力拔山兮气盖世&quot;</span>);<br>        userService.save(user);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样子的话，我们就可以实现返回事务回滚，从而不会使测试后的脏数据影响到数据库了。</p>
+<h4 id="模块八：测试用例配置随机数据"><a href="#模块八：测试用例配置随机数据" class="headerlink" title="模块八：测试用例配置随机数据"></a>模块八：测试用例配置随机数据</h4><p>在我们上面的测试用例中，当我们要进行一些保存的测试时，需要我们去造数据，这得是一个多么累的活呀，能不能像前端的<code>mockjs</code>一样自动生成随机数据呢，显然，这也是可以实现的，那下面我们就来说说怎么配置随机数据用于测试用例。</p>
+<p>首先，我们现在<code>application.yml</code>配置我们的随机数据</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">testcase:</span><br>  <span class="hljs-attr">user:</span><br>    <span class="hljs-attr">id:</span> <span class="hljs-string">$&#123;random.uuid&#125;</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">测试-$&#123;random.value&#125;</span><br>    <span class="hljs-attr">age:</span> <span class="hljs-string">$&#123;random.int(1,30)&#125;</span><br>    <span class="hljs-attr">remarks:</span> <span class="hljs-string">$&#123;random.long&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>以上的配置我们就举了几个常见的类型作为示例。</p>
+<p>其次，我们需要将这些数据交给 springboot 管理，我们创建一个实体类，来加载这些配置数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-meta">@ConfigurationProperties(prefix = &quot;testcase.user&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserCase</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *  主键</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String id;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 姓名</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String name;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 年龄</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer age;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *  简介</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Long remarks;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>最后，我们就可以新建一个测试类<code>GTest.java</code>，多次运行来查看我们的数据是否是随机的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootTest</span><br><span class="hljs-meta">@DisplayName(&quot;G功能测试类&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GTest</span> &#123;<br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> UserCase userCase;<br><br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-meta">@DisplayName(&quot;测试通过配置生成随机数据&quot;)</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">test</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;userCase = &quot;</span> + userCase);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>三次运行结果如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">第一次</span><br>userCase = UserCase(id=1a4eeedd-13d5-4b7a-a5d9-c563f8d17728, name=测试-ef22391498551eaf5432cb5990f42c9f, age=23, remarks=8470340192971314075)<br><span class="hljs-meta prompt_"># </span><span class="language-bash">第二次</span><br>userCase = UserCase(id=94f85687-3d6f-4f0b-b324-33df647cdc87, name=测试-bf3ac1b46c7d5944bceeed14eb47c14f, age=17, remarks=-8987874862682056374)<br><span class="hljs-meta prompt_"># </span><span class="language-bash">第三次</span><br>userCase = UserCase(id=7dae0df4-2429-4dbe-a431-587e85cccffe, name=测试-7d52ac988e832b5099ae9a420175722e, age=5, remarks=3053358157117412412)<br></code></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>最后，我想说其实测试用例是很多用法的，以上我们只是介绍了一些简单的使用方法，具体的使用还是需要各位同学们去实践的，毕竟实现是检验真理的唯一标准。今天的内容就到这啦～</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/springboot/">#springboot</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>springboot2测试用例怎么玩</div>
+      <div>https://gcoder5.com/2023/09/11/springboot2测试用例怎么玩/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Gcoder</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/07/13/%E8%AE%B0%E5%BD%95%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAnode%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%85%A8%E8%BF%87%E7%A8%8B/" title="记录创建一个node项目的全过程">
+                        <span class="hidden-mobile">记录创建一个node项目的全过程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      <script src="//cdn.jsdelivr.net/npm/@waline/client"></script>
+
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-test-h4672b0db-gaohuiwu.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"avatar":"retro","locale":{"placeholder":"从学到温习是一个过程 千人千心得 欢迎分享~"},"highlight":true,"avatarForce":false,"avatarCDN":"","requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname,
+            serverURL: 'https://waline-test-h4672b0db-gaohuiwu.vercel.app/',
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量
+        <span id="leancloud-site-pv"></span>
+        次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数
+        <span id="leancloud-site-uv"></span>
+        人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
